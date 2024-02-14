@@ -41,14 +41,14 @@ const useLogoAnimate = () => {
     (async () => {
       const quizNextStyle = { y: 0, opacity: 1 };
 
-      await animateQ(scopeQ.current, quizNextStyle, { duration: 0.3 });
-      await animateU(scopeU.current, quizNextStyle, { duration: 0.3 });
-      await animateI(scopeI.current, quizNextStyle, { duration: 0.3 });
-      await animateZ(scopeZ.current, quizNextStyle, { duration: 0.3 });
+      await animateQ(scopeQ.current, quizNextStyle, { duration: 0.4 });
+      await animateU(scopeU.current, quizNextStyle, { duration: 0.4 });
+      await animateI(scopeI.current, quizNextStyle, { duration: 0.4 });
+      await animateZ(scopeZ.current, quizNextStyle, { duration: 0.4 });
       await animateUP(
         scopeUP.current,
         { y: 0 },
-        { type: 'spring', duration: 1, bounce: 0.8, stiffness: 400, damping: 7 }
+        { type: 'spring', duration: 1, bounce: 0.7, stiffness: 400, damping: 7, delay: 0.3 }
       );
     })();
   }, []);
