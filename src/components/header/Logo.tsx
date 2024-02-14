@@ -1,29 +1,29 @@
 'use client';
 
-import { motion, useAnimate } from 'framer-motion';
+import { motion, stagger, useAnimate } from 'framer-motion';
 import { useEffect } from 'react';
 import { logoWrapperStyle } from './styles';
 
-const spanStyle = { y: 50, opacity: 0, display: 'inline-block' };
+const spanStyle = { y: 30, opacity: 0, display: 'inline-block' };
 
 export default function Logo() {
   const [q, u, i, z, up] = useLogoAnimate();
 
   return (
     <div {...logoWrapperStyle}>
-      <motion.span style={spanStyle} ref={q}>
+      <motion.span initial={spanStyle} ref={q}>
         Q
       </motion.span>
-      <motion.span style={spanStyle} ref={u}>
+      <motion.span initial={spanStyle} ref={u}>
         u
       </motion.span>
-      <motion.span style={spanStyle} ref={i}>
+      <motion.span initial={spanStyle} ref={i}>
         i
       </motion.span>
-      <motion.span style={spanStyle} ref={z}>
+      <motion.span initial={spanStyle} ref={z}>
         z
       </motion.span>
-      <motion.span style={{ y: -100, display: 'inline-block' }} ref={up}>
+      <motion.span initial={{ y: -70, display: 'inline-block' }} ref={up}>
         UP
       </motion.span>
     </div>
@@ -41,14 +41,14 @@ const useLogoAnimate = () => {
     (async () => {
       const quizNextStyle = { y: 0, opacity: 1 };
 
-      await animateQ(scopeQ.current, quizNextStyle, { duration: 0.4 });
-      await animateU(scopeU.current, quizNextStyle, { duration: 0.4 });
-      await animateI(scopeI.current, quizNextStyle, { duration: 0.4 });
-      await animateZ(scopeZ.current, quizNextStyle, { duration: 0.4 });
+      await animateQ(scopeQ.current, quizNextStyle, { duration: 0.15 });
+      await animateU(scopeU.current, quizNextStyle, { duration: 0.15 });
+      await animateI(scopeI.current, quizNextStyle, { duration: 0.15 });
+      await animateZ(scopeZ.current, quizNextStyle, { duration: 0.15 });
       await animateUP(
         scopeUP.current,
         { y: 0 },
-        { type: 'spring', duration: 1, bounce: 0.7, stiffness: 400, damping: 7, delay: 0.3 }
+        { type: 'spring', duration: 1, bounce: 0.7, stiffness: 400, damping: 7, delay: 0.2 }
       );
     })();
   }, []);
