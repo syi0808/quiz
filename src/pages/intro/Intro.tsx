@@ -3,8 +3,6 @@
 import { motion, stagger } from 'framer-motion';
 import Link from 'next/link';
 
-const staggerDelay = stagger(0.6);
-
 export default function Intro() {
   return (
     <div>

@@ -1,8 +1,9 @@
 'use client';
 
 import Step from '@/components/step/Step';
-import CategorySelection from '@/pages/category-selection/CategorySelection';
-import DifficultySelection from '@/pages/difficulty-selection/DifficultySelection';
+import CategorySelection from '@/pages/selections/category-selection/CategorySelection';
+import DifficultySelection from '@/pages/selections/difficulty-selection/DifficultySelection';
+import Finish from '@/pages/selections/finish/Finish';
 import * as sx from '@stylexjs/stylex';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -14,7 +15,12 @@ export default function Wizard() {
   const router = useRouter();
 
   const onFinish = () => {
-    router.push('/quiz');
+    const searchParams = new URLSearchParams([
+      ['category', category ?? ''],
+      ['difficulty', difficulty ?? ''],
+    ]);
+
+    router.push(`/quiz?${searchParams.toString()}`);
   };
 
   return (
@@ -25,16 +31,17 @@ export default function Wizard() {
           1: (
             <CategorySelection initialCategory={category} onNext={(category) => (setStep(2), setCategory(category))} />
           ),
-          2: <DifficultySelection />,
+          2: (
+            <DifficultySelection
+              initialDifficulty={difficulty}
+              onNext={(difficulty) => (setStep(3), setDifficulty(difficulty))}
+            />
+          ),
           3: <Finish onFinish={onFinish} />,
         }[step]
       }
     </div>
   );
-}
-
-function Finish({ onFinish }: { onFinish: () => void }) {
-  return <></>;
 }
 
 const styles = sx.create({

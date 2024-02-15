@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Loading from '../loading/Loading';
+import Loading from '../../loading/Loading';
 import { useCategories } from './hooks/useCategories';
-import { buttonStyle, buttonsContainerStyle, containerStyle, titleStyle } from './styles';
+import { buttonStyle, buttonsContainerStyle, containerStyle, titleStyle } from '../styles';
 
 export default function CategorySelection({
   initialCategory,
