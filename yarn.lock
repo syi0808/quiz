@@ -2361,6 +2361,11 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+fp-ts@^2.16.2:
+  version "2.16.2"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.16.2.tgz#7faa90f6fc2e8cf84c711d2c4e606afe2be9e342"
+  integrity sha512-CkqAjnIKFqvo3sCyoBTqgJvF+bHrSik584S9nhTjtBESLx26cbtVMR/T9a6ApChOcSDAaM3JydDmWDUn4EEXng==
+
 framer-motion@^11.0.5:
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.0.5.tgz#2ae1341d8605a01c50009d3bb195a67e4e2bfc69"
@@ -2688,6 +2693,11 @@ invariant@^2.2.4:
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
   dependencies:
     loose-envify "^1.0.0"
+
+io-ts@^2.2.21:
+  version "2.2.21"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.21.tgz#4ef754176f7082a1099d04c7d5c4ea53267c530a"
+  integrity sha512-zz2Z69v9ZIC3mMLYWIeoUcwWD6f+O7yP92FMVVaXEOSZH1jnVBmET/urd/uoarD1WGBY4rCj8TAyMPzsGNzMFQ==
 
 is-arguments@^1.1.1:
   version "1.1.1"

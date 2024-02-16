@@ -7,6 +7,14 @@ export async function GET(request: NextRequest) {
     searchParams.set('amount', '10');
   }
 
+  if (searchParams.get('category') === 'any') {
+    searchParams.delete('category');
+  }
+
+  if (searchParams.get('difficulty') === 'any') {
+    searchParams.delete('difficulty');
+  }
+
   const res = await fetch(`https://opentdb.com/api.php?${searchParams.toString()}`);
   const json = await res.json();
 
