@@ -1,3 +1,4 @@
+import toCamelCase from '@/shared/utils/object';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -16,7 +17,9 @@ export async function GET(request: NextRequest) {
   }
 
   const res = await fetch(`https://opentdb.com/api.php?${searchParams.toString()}`);
-  const json = await res.json();
+  const { results } = await res.json();
 
-  return NextResponse.json(json);
+  console.log(results);
+
+  return NextResponse.json(results.map(toCamelCase));
 }

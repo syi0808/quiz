@@ -4,6 +4,7 @@ const styles = sx.create({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    gap: '20px',
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '100%',

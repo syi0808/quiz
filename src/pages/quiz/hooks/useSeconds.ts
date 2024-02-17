@@ -1,16 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { titleStyle } from './styles';
-import { formatSecondsToMinutes } from '@/shared/utils/number';
 
-export default function Timer() {
-  const seconds = useSeconds();
-
-  return <span {...titleStyle}>{formatSecondsToMinutes(seconds)}</span>;
-}
-
-const useSeconds = () => {
+export const useSeconds = () => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {

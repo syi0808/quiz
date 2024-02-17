@@ -1,9 +1,8 @@
-import toCamelCase from '@/shared/utils/object';
 import { headers } from 'next/headers';
-import Quiz from '@/pages/quiz/Quiz';
 import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/lib/Either';
 import { getRandomInterger } from '@/shared/utils/random';
+import Quiz from '@/pages/quiz/Quiz';
 
 const QuizResponse = t.array(
   t.type({
@@ -32,7 +31,7 @@ export default async function QuizPage({ searchParams }: { searchParams: { [key:
     `${protocal}://${host}/api/quiz?${new URLSearchParams(Object.entries(searchParams)).toString()}`,
     { cache: 'no-store' }
   );
-  const results = (await res.json()).results.map(toCamelCase);
+  const results = await res.json();
 
   const decoded = QuizResponse.decode(results);
 
