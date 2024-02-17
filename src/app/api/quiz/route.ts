@@ -1,3 +1,4 @@
+import { sleep } from '@/shared/utils/async';
 import toCamelCase from '@/shared/utils/object';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -16,10 +17,18 @@ export async function GET(request: NextRequest) {
     searchParams.delete('difficulty');
   }
 
-  const res = await fetch(`https://opentdb.com/api.php?${searchParams.toString()}`);
-  const { results } = await res.json();
+  const getResult = async () => {
+    const res = await fetch(`https://opentdb.com/api.php?${searchParams.toString()}`);
+    return await res.json();
+  };
 
-  console.log(results);
+  do {
+    const result = await getResult();
 
-  return NextResponse.json(results.map(toCamelCase));
+    if (result.response_code === 0) {
+      return NextResponse.json(result.results.map(toCamelCase));
+    } else {
+      await sleep(100);
+    }
+  } while (1);
 }

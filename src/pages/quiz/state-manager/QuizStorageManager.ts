@@ -4,11 +4,11 @@ import { Quiz } from '@/app/quiz/page';
 import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/lib/Either';
 
-type QuizWithInformation = Quiz & {
-  selectedAnswer?: string;
+export type QuizWithInformation = Quiz & {
+  selectedAnswerIndex?: number;
 };
 
-interface QuizStorage {
+export interface QuizStorage {
   time: number;
   currentQuizIndex: number;
   quizzes?: QuizWithInformation[];
@@ -28,36 +28,39 @@ const QuizStorage = t.type({
         correctAnswerIndex: t.number,
       }),
       t.partial({
-        selectedAnswer: t.string,
+        selectedAnswerIndex: t.number,
       }),
     ])
   ),
 });
 
+const initialState: QuizStorage = {
+  time: 0,
+  currentQuizIndex: 0,
+};
+
 export class QuizStorageManager {
-  state: QuizStorage = {
-    time: 0,
-    currentQuizIndex: 0,
-  };
-  listeners: (() => void)[] = [];
+  state: QuizStorage = initialState;
+  #listeners: (() => void)[] = [];
 
   constructor() {
-    console.log('ASd');
-    const quizStorage = localStorage.getItem('quiz_storage');
+    if (typeof window !== 'undefined') {
+      const quizStorage = localStorage.getItem('quiz_storage');
 
-    try {
-      const decoded = QuizStorage.decode(JSON.parse(quizStorage ?? ''));
+      try {
+        const decoded = QuizStorage.decode(JSON.parse(quizStorage ?? ''));
 
-      if (!isLeft(decoded)) {
-        type QuizStorageT = t.TypeOf<typeof QuizStorage>;
-        const decodedQuizStorage: QuizStorageT = decoded.right;
+        if (!isLeft(decoded)) {
+          type QuizStorageT = t.TypeOf<typeof QuizStorage>;
+          const decodedQuizStorage: QuizStorageT = decoded.right;
 
-        this.state = {
-          ...this.state,
-          ...decodedQuizStorage,
-        };
-      }
-    } catch (e) {}
+          this.state = {
+            ...this.state,
+            ...decodedQuizStorage,
+          };
+        }
+      } catch (e) {}
+    }
   }
 
   // @withEmitChange
@@ -80,6 +83,20 @@ export class QuizStorageManager {
     this.emitChange();
   }
 
+  // @withEmitChange
+  setSelectedAnswerIndex(quizIndex: number, answerIndex: number) {
+    this.state = {
+      ...this.state,
+      quizzes:
+        this.state.quizzes?.with(quizIndex, {
+          ...this.state.quizzes[quizIndex],
+          selectedAnswerIndex: answerIndex,
+        }) ?? undefined,
+    };
+
+    this.emitChange();
+  }
+
   setTimeWithoutStateChange(time: number) {
     this.state = {
       ...this.state,
@@ -88,19 +105,23 @@ export class QuizStorageManager {
   }
 
   emitChange() {
-    for (let listener of this.listeners) {
+    for (let listener of this.#listeners) {
       listener();
     }
   }
 
   subscribe(listener: () => void) {
-    this.listeners = [...this.listeners, listener];
+    this.#listeners = [...this.#listeners, listener];
 
-    return () => (this.listeners = this.listeners.filter((l) => l !== listener));
+    return () => (this.#listeners = this.#listeners.filter((l) => l !== listener));
   }
 
   getSnapshot() {
     return this.state;
+  }
+
+  getServerSnapshot() {
+    return initialState;
   }
 }
 

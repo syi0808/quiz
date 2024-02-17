@@ -34,6 +34,10 @@ export default function RootLayout({
 
 const styles = sx.create({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    minHeight: '100%',
     width: {
       default: null,
       '@media (min-width: 1241px)': '1200px',

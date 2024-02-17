@@ -7,17 +7,22 @@ import { QuizStorageManager } from '../state-manager/QuizStorageManager';
 
 const singleton = new QuizStorageManager();
 
-export const useQuizStorage = (quizzes: Quiz[]) => {
-  const storage = useSyncExternalStore(singleton.subscribe.bind(singleton), singleton.getSnapshot.bind(singleton));
+export const useQuizStorage = (quizzes?: Quiz[]) => {
+  const storage = useSyncExternalStore(
+    singleton.subscribe.bind(singleton),
+    singleton.getSnapshot.bind(singleton),
+    singleton.getServerSnapshot.bind(singleton)
+  );
 
   useEffect(() => {
-    singleton.setQuizzes(quizzes);
+    quizzes && singleton.setQuizzes(quizzes);
   }, [quizzes]);
 
   return {
-    quizzes: storage?.quizzes ?? quizzes,
+    quizzes: (storage?.quizzes ?? quizzes) as Exclude<typeof storage.quizzes, undefined>,
     currentQuizIndex: storage.currentQuizIndex,
-    setCurrentQuizIndex: singleton.setCurrentQuizIndex,
+    setCurrentQuizIndex: singleton.setCurrentQuizIndex.bind(singleton),
+    setSelectedAnswerIndex: singleton.setSelectedAnswerIndex.bind(singleton),
   };
 };
 
