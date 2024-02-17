@@ -1,8 +1,9 @@
 'use client';
 
-import { Quiz } from '@/app/quiz/page';
 import * as t from 'io-ts';
 import { isLeft } from 'fp-ts/lib/Either';
+import { ExternalStore } from '@/shared/utils/class';
+import { Quiz, getQuizzes } from '../api/quiz';
 
 export type QuizWithInformation = Quiz & {
   selectedAnswerIndex?: number;
@@ -11,6 +12,7 @@ export type QuizWithInformation = Quiz & {
 export interface QuizStorage {
   time: number;
   currentQuizIndex: number;
+  initialized: boolean;
   quizzes?: QuizWithInformation[];
 }
 
@@ -37,26 +39,41 @@ const QuizStorage = t.type({
 const initialState: QuizStorage = {
   time: 0,
   currentQuizIndex: 0,
+  initialized: false,
 };
 
-export class QuizStorageManager {
-  state: QuizStorage = initialState;
-  #listeners: (() => void)[] = [];
+const QUIZ_STORAGE_NAME = 'quiz_storage';
 
+export class QuizStorageManager extends ExternalStore<QuizStorage> {
   constructor() {
+    super(initialState);
+
     if (typeof window !== 'undefined') {
-      const quizStorage = localStorage.getItem('quiz_storage');
+      const quizStorage = localStorage.getItem(QUIZ_STORAGE_NAME);
 
       try {
         const decoded = QuizStorage.decode(JSON.parse(quizStorage ?? ''));
 
-        if (!isLeft(decoded)) {
+        if (isLeft(decoded)) {
+          (async () => {
+            const quizzes = await getQuizzes(new URLSearchParams(window.location.search));
+
+            this.state = {
+              ...this.state,
+              quizzes,
+              initialized: true,
+            };
+
+            this.updateLocalstorage(true);
+          })();
+        } else {
           type QuizStorageT = t.TypeOf<typeof QuizStorage>;
           const decodedQuizStorage: QuizStorageT = decoded.right;
 
           this.state = {
             ...this.state,
             ...decodedQuizStorage,
+            initialized: true,
           };
         }
       } catch (e) {}
@@ -70,7 +87,7 @@ export class QuizStorageManager {
       quizzes,
     };
 
-    this.emitChange();
+    this.updateLocalstorage(true);
   }
 
   // @withEmitChange
@@ -80,7 +97,7 @@ export class QuizStorageManager {
       currentQuizIndex,
     };
 
-    this.emitChange();
+    this.updateLocalstorage(true);
   }
 
   // @withEmitChange
@@ -94,7 +111,7 @@ export class QuizStorageManager {
         }) ?? undefined,
     };
 
-    this.emitChange();
+    this.updateLocalstorage(true);
   }
 
   setTimeWithoutStateChange(time: number) {
@@ -102,22 +119,16 @@ export class QuizStorageManager {
       ...this.state,
       time,
     };
+
+    this.updateLocalstorage();
   }
 
-  emitChange() {
-    for (let listener of this.#listeners) {
-      listener();
+  updateLocalstorage(emitChange: boolean = false) {
+    localStorage.setItem(QUIZ_STORAGE_NAME, JSON.stringify(this.state));
+
+    if (emitChange) {
+      this.emitChange();
     }
-  }
-
-  subscribe(listener: () => void) {
-    this.#listeners = [...this.#listeners, listener];
-
-    return () => (this.#listeners = this.#listeners.filter((l) => l !== listener));
-  }
-
-  getSnapshot() {
-    return this.state;
   }
 
   getServerSnapshot() {

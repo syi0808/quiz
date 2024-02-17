@@ -2,10 +2,10 @@
 
 import { formatSecondsToMinutes } from '@/shared/utils/number';
 import * as sx from '@stylexjs/stylex';
-import { useSeconds } from './hooks/useSeconds';
+import { useQuizTimer } from './hooks/useQuizStorage';
 
 export default function Timer() {
-  const seconds = useSeconds();
+  const seconds = useQuizTimer();
 
   return <span {...sx.props(styles.title)}>{formatSecondsToMinutes(seconds)}</span>;
 }

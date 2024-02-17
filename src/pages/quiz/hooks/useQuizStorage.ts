@@ -1,33 +1,29 @@
 'use client';
 
-import { Quiz } from '@/app/quiz/page';
 import { useEffect, useSyncExternalStore } from 'react';
 import { useSeconds } from './useSeconds';
 import { QuizStorageManager } from '../state-manager/QuizStorageManager';
 
 const singleton = new QuizStorageManager();
 
-export const useQuizStorage = (quizzes?: Quiz[]) => {
+export const useQuizStorage = () => {
   const storage = useSyncExternalStore(
     singleton.subscribe.bind(singleton),
     singleton.getSnapshot.bind(singleton),
     singleton.getServerSnapshot.bind(singleton)
   );
 
-  useEffect(() => {
-    quizzes && singleton.setQuizzes(quizzes);
-  }, [quizzes]);
-
   return {
-    quizzes: (storage?.quizzes ?? quizzes) as Exclude<typeof storage.quizzes, undefined>,
+    quizzes: storage.quizzes,
     currentQuizIndex: storage.currentQuizIndex,
     setCurrentQuizIndex: singleton.setCurrentQuizIndex.bind(singleton),
     setSelectedAnswerIndex: singleton.setSelectedAnswerIndex.bind(singleton),
+    initialized: storage.initialized,
   };
 };
 
 export const useQuizTimer = () => {
-  const seconds = useSeconds();
+  const seconds = useSeconds(singleton.state.time);
 
   useEffect(() => {
     singleton.setTimeWithoutStateChange(seconds);

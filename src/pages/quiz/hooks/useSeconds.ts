@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-export const useSeconds = () => {
-  const [seconds, setSeconds] = useState(0);
+export const useSeconds = (initialSeconds = 0) => {
+  const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
     const interval = 1000;
