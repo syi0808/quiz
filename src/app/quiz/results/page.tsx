@@ -1,3 +1,5 @@
+'use client';
+
 import Loading from '@/pages/loading/Loading';
 import dynamic from 'next/dynamic';
 

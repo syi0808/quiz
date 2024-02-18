@@ -29,8 +29,8 @@ const initialState: QuizStorage = {
   initialized: false,
 };
 
-const QUIZ_STORAGE_NAME = 'quiz_storage';
-const QUIZ_RESULT_STORAGE_NAME = 'quiz_result_storage';
+export const QUIZ_STORAGE_NAME = 'quiz_storage';
+export const QUIZ_RESULT_STORAGE_NAME = 'quiz_result_storage';
 
 export class QuizStorageManager extends ExternalStore<QuizStorage> {
   constructor() {
