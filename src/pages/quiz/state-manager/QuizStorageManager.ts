@@ -9,12 +9,19 @@ export type QuizWithInformation = Quiz & {
   selectedAnswerIndex?: number;
 };
 
-export interface QuizStorage {
+export type QuizStorage = {
   time: number;
   currentQuizIndex: number;
-  initialized: boolean;
-  quizzes?: QuizWithInformation[];
-}
+} & (
+  | {
+      initialized: false;
+      quizzes?: QuizWithInformation[];
+    }
+  | {
+      initialized: true;
+      quizzes: QuizWithInformation[];
+    }
+);
 
 const QuizStorage = t.type({
   time: t.number,
@@ -43,40 +50,49 @@ const initialState: QuizStorage = {
 };
 
 const QUIZ_STORAGE_NAME = 'quiz_storage';
+const QUIZ_RESULT_STORAGE_NAME = 'quiz_result_storage';
 
 export class QuizStorageManager extends ExternalStore<QuizStorage> {
   constructor() {
-    super(initialState);
+    super({ ...initialState });
 
     if (typeof window !== 'undefined') {
-      const quizStorage = localStorage.getItem(QUIZ_STORAGE_NAME);
+      this.initialize();
+    }
+  }
 
-      try {
-        const decoded = QuizStorage.decode(JSON.parse(quizStorage ?? ''));
+  initialize() {
+    const quizStorage = localStorage.getItem(QUIZ_STORAGE_NAME);
 
-        if (isLeft(decoded)) {
-          (async () => {
-            const quizzes = await getQuizzes(new URLSearchParams(window.location.search));
+    const initializeQuizzes = async () => {
+      const quizzes = await getQuizzes(new URLSearchParams(window.location.search));
 
-            this.state = {
-              ...this.state,
-              quizzes,
-              initialized: true,
-            };
+      this.state = {
+        ...this.state,
+        quizzes,
+        initialized: true,
+      };
 
-            this.updateLocalstorage(true);
-          })();
-        } else {
-          type QuizStorageT = t.TypeOf<typeof QuizStorage>;
-          const decodedQuizStorage: QuizStorageT = decoded.right;
+      this.updateLocalstorage(true);
+    };
 
-          this.state = {
-            ...this.state,
-            ...decodedQuizStorage,
-            initialized: true,
-          };
-        }
-      } catch (e) {}
+    try {
+      const decoded = QuizStorage.decode(JSON.parse(quizStorage ?? ''));
+
+      if (isLeft(decoded)) {
+        initializeQuizzes();
+      } else {
+        type QuizStorageT = t.TypeOf<typeof QuizStorage>;
+        const decodedQuizStorage: QuizStorageT = decoded.right;
+
+        this.state = {
+          ...this.state,
+          ...decodedQuizStorage,
+          initialized: true,
+        };
+      }
+    } catch (e) {
+      initializeQuizzes();
     }
   }
 
@@ -108,8 +124,16 @@ export class QuizStorageManager extends ExternalStore<QuizStorage> {
         this.state.quizzes?.with(quizIndex, {
           ...this.state.quizzes[quizIndex],
           selectedAnswerIndex: answerIndex,
-        }) ?? undefined,
+        }) ?? [],
     };
+
+    this.updateLocalstorage(true);
+  }
+
+  finishQuiz() {
+    localStorage.setItem(QUIZ_RESULT_STORAGE_NAME, JSON.stringify(this.state));
+
+    this.state = { ...initialState };
 
     this.updateLocalstorage(true);
   }

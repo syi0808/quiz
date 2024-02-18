@@ -5,20 +5,29 @@ import { useQuizStorage } from './hooks/useQuizStorage';
 import Answer from './Answer';
 import Timer from './Timer';
 import Loading from '../loading/Loading';
-import { QuizWithInformation } from './state-manager/QuizStorageManager';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function QuizGame() {
-  const { quizzes, currentQuizIndex, setCurrentQuizIndex, initialized } = useQuizStorage();
+  const router = useRouter();
+  const { initialized, quizzes, currentQuizIndex, initialize, setCurrentQuizIndex, finishQuiz } = useQuizStorage();
 
-  const handleNextQuiz = () => {
-    setCurrentQuizIndex(currentQuizIndex + 1);
-  };
+  useEffect(() => void initialize(), []);
 
   if (!initialized) return <Loading />;
 
-  // quizzes variable is must be not undefined after initialized.
-  const quiz = quizzes?.[currentQuizIndex] as QuizWithInformation;
+  const quiz = quizzes?.[currentQuizIndex];
   const isRoundEnded = quiz?.selectedAnswerIndex !== undefined;
+  const isLastQuiz = currentQuizIndex >= quizzes.length - 1;
+
+  const handleNextQuiz = () => {
+    if (isLastQuiz) {
+      finishQuiz();
+      router.push('/quiz/results');
+    } else {
+      setCurrentQuizIndex(currentQuizIndex + 1);
+    }
+  };
 
   return (
     <div {...containerStyle}>
@@ -30,7 +39,7 @@ export default function QuizGame() {
         </div>
       </div>
       <button disabled={!isRoundEnded} onClick={handleNextQuiz}>
-        Next Quiz
+        {isLastQuiz ? 'Result' : 'Next Quiz'}
       </button>
     </div>
   );

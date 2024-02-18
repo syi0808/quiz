@@ -43,18 +43,10 @@ function addEventListenerInactivePage(callback: (isVisible: boolean) => void) {
     else callback(true);
   };
 
-  const onFocus = () => void callback(true);
-
-  const onBlur = () => void callback(false);
-
   document.addEventListener('visibilitychange', onChangeActivation);
-  window.addEventListener('focus', onFocus, false);
-  window.addEventListener('blur', onBlur, false);
 
   const removeEventListeners = () => {
     document.removeEventListener('visibilitychange', onChangeActivation);
-    window.removeEventListener('focus', onFocus, false);
-    window.removeEventListener('blur', onBlur, false);
   };
 
   return removeEventListeners;
