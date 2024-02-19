@@ -35,10 +35,6 @@ export const QUIZ_RESULT_STORAGE_NAME = 'quiz_result_storage';
 export class QuizStorageManager extends ExternalStore<QuizStorage> {
   constructor() {
     super({ ...initialState });
-
-    if (typeof window !== 'undefined') {
-      this.initialize();
-    }
   }
 
   initialize() {

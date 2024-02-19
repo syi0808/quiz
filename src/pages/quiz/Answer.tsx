@@ -3,10 +3,20 @@
 import * as sx from '@stylexjs/stylex';
 import { useQuizStorage } from './hooks/useQuizStorage';
 import { QuizWithInformation } from './state-manager/QuizStorageManager';
+import CheckIcon from '@/components/icons/Check';
+import { colors } from '@/shared/styles/tokens.stylex';
 
-export default function Answer({ answers, correctAnswerIndex, selectedAnswerIndex }: QuizWithInformation) {
+export default function Answer({
+  answers,
+  correctAnswerIndex,
+  selectedAnswerIndex,
+  showCorrectAnswer = false,
+}: QuizWithInformation & {
+  showCorrectAnswer?: boolean;
+}) {
   const { currentQuizIndex, setSelectedAnswerIndex } = useQuizStorage();
   const isAnswer = selectedAnswerIndex === correctAnswerIndex;
+  console.log(correctAnswerIndex, selectedAnswerIndex);
 
   const handleAnswerButton = (index: number) => () => {
     setSelectedAnswerIndex(currentQuizIndex, index);
@@ -16,6 +26,7 @@ export default function Answer({ answers, correctAnswerIndex, selectedAnswerInde
     <div {...sx.props(styles.container)}>
       {answers.map((answer, index) => {
         const isSelectedButton = selectedAnswerIndex === index;
+        const isAnswerButton = correctAnswerIndex === index;
 
         return (
           <button
@@ -24,6 +35,7 @@ export default function Answer({ answers, correctAnswerIndex, selectedAnswerInde
             key={answer}
             {...sx.props(styles.button, isSelectedButton && getAnswerButtonStyle(isAnswer))}
           >
+            {showCorrectAnswer && isAnswerButton && <CheckIcon style={styles.correctAnswerButton} />}
             {answer}
           </button>
         );
@@ -33,7 +45,7 @@ export default function Answer({ answers, correctAnswerIndex, selectedAnswerInde
 }
 
 const getAnswerButtonStyle = (isAnswer: boolean) => {
-  return isAnswer ? styles.correctAnswerButton : styles.incorrectAnswerButton;
+  return isAnswer ? styles.correctSelectedButton : styles.incorrectSelectedButton;
 };
 
 const styles = sx.create({
@@ -49,12 +61,23 @@ const styles = sx.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '24px 32px',
+    padding: '40px 60px',
+    position: 'relative',
   },
   correctAnswerButton: {
-    border: '1px solid green',
+    width: '36px',
+    height: '36px',
+    fill: colors.primary,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
-  incorrectAnswerButton: {
-    border: '1px solid tomato',
+  correctSelectedButton: {
+    border: '1px solid',
+    borderColor: colors.primary,
+  },
+  incorrectSelectedButton: {
+    border: '1px solid',
+    borderColor: colors.red,
   },
 });

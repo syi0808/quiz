@@ -31,6 +31,9 @@ export default function QuizGame() {
 
   return (
     <div {...containerStyle}>
+      <span>
+        {currentQuizIndex + 1} / {quizzes.length}
+      </span>
       <Timer />
       <div {...questionWrapperStyle}>
         <h1 dangerouslySetInnerHTML={{ __html: quiz.question }} {...questionStyle}></h1>
