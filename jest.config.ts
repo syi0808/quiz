@@ -11,7 +11,7 @@ const createJestConfig = nextJest({
 });
 
 const config: Config = {
-  coverageProvider: 'v8',
+  clearMocks: true,
   testEnvironment: './src/tests/environment.ts',
   setupFilesAfterEnv: ['./src/tests/setupTests.ts'],
   setupFiles: ['./src/tests/jest.polyfills.js'],
@@ -20,6 +20,11 @@ const config: Config = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  testMatch: ['**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  verbose: false,
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
 };
 
