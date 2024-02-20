@@ -21,7 +21,7 @@ const errorMockResponse: unknown[] = [{ wrongProperty: 'wrongValue' }];
 
 export const quizHandlers = [
   http.get('/api/quiz', ({ params }) => {
-    if (params.category === 'error') {
+    if (params?.category === 'error') {
       return HttpResponse.json(errorMockResponse);
     }
 

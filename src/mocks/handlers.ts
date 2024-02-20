@@ -1,3 +1,3 @@
-import { quizHandlers } from '@/pages/quiz/api/tests/quiz.test';
+import { quizHandlers } from '@/pages/quiz/api/__tests__/quiz.test';
 
-export const handlers = [...Object.values(quizHandlers)];
+export const handlers = [...quizHandlers];

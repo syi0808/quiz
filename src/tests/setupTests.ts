@@ -1,3 +1,4 @@
+import 'ts-node/register';
 import { server } from '@/mocks/node';
 import { afterAll, afterEach, beforeAll } from '@jest/globals';
 
