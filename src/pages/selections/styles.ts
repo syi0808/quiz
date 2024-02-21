@@ -1,4 +1,4 @@
-import { fontFamily } from '@/shared/styles/tokens.stylex';
+import { colors, fontFamily } from '@/shared/styles/tokens.stylex';
 import * as sx from '@stylexjs/stylex';
 
 const styles = sx.create({
@@ -18,15 +18,21 @@ const styles = sx.create({
     gap: '12px',
     maxHeight: '500px',
     overflow: 'auto',
+    padding: '8px',
   },
   button: {
     width: '100%',
     height: '100%',
     fontFamily: fontFamily.roboto,
     padding: '20px',
+    borderRadius: '8px',
+    border: 'none',
+    outline: '2px solid #aaa',
+    transition: 'outline 0.1s linear',
   },
   activeButton: {
-    border: '2px solid red',
+    outline: '4px solid',
+    outlineColor: colors.red,
   },
 });
 

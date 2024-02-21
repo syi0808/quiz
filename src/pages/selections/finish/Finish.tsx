@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { containerStyle, titleStyle } from '../styles';
+import Button from '@/components/button/3DButton';
 
 export default function Finish({ onFinish }: { onFinish: () => void }) {
   return (
     <div {...containerStyle}>
       <p {...titleStyle}>Take a quiz based on the information you choose</p>
-      <button onClick={onFinish}>Play</button>
+      <Button onClick={onFinish}>Play</Button>
     </div>
   );
 }

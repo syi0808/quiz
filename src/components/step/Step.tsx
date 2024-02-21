@@ -6,15 +6,26 @@ interface Step {
   label: string;
 }
 
-export default function Step({ currentStep, steps }: { currentStep: number; steps: Step[] }) {
+export default function Step({
+  currentStep,
+  steps,
+  changeStep,
+}: {
+  currentStep: number;
+  steps: Step[];
+  changeStep: (step: number) => void;
+}) {
   const stepsLength = steps.length;
 
   return (
     <div {...sx.props(styles.container)}>
       {steps.map(({ label }, index) => (
         <div key={index} {...sx.props(styles.container)}>
-          <div {...sx.props(styles.circle, index < currentStep && styles.activeCircle)}>
-            {index > currentStep - 2 ? index + 1 : <CheckIcon />}
+          <div
+            onClick={() => changeStep(index + 1)}
+            {...sx.props(styles.circle, index < currentStep && styles.activeCircle)}
+          >
+            {index > currentStep - 2 ? index + 1 : <CheckIcon style={styles.icon} />}
             <div {...sx.props(styles.circleLabel)}>{label}</div>
           </div>
           {index < stepsLength - 1 && (
@@ -45,6 +56,7 @@ const styles = sx.create({
     borderRadius: '50%',
     color: 'white',
     position: 'relative',
+    cursor: 'pointer',
   },
   circleLabel: {
     position: 'absolute',
@@ -64,10 +76,13 @@ const styles = sx.create({
   },
   activeCircle: {
     background: colors.primary,
-    borderColor: '#eee',
+    borderColor: '#efefef !important',
   },
   activeLine: {
     background: colors.primary,
-    borderColor: '#eee',
+    borderColor: '#efefef !important',
+  },
+  icon: {
+    fill: 'white',
   },
 });

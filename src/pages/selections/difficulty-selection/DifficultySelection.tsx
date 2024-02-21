@@ -4,6 +4,7 @@ import Loading from '@/pages/loading/Loading';
 import { buttonStyle, buttonsContainerStyle, containerStyle, titleStyle } from '../styles';
 import { useState } from 'react';
 import { useDifficulties } from './hooks/useDifficulties';
+import Button from '@/components/button/3DButton';
 
 export default function DifficultySelection({
   onNext,
@@ -26,7 +27,7 @@ export default function DifficultySelection({
           </button>
         ))}
       </div>
-      <button onClick={() => onNext(category ?? '')}>Next</button>
+      <Button onClick={() => onNext(category ?? '')}>Next</Button>
     </div>
   );
 }

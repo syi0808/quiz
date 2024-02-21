@@ -25,7 +25,11 @@ export default function Wizard() {
 
   return (
     <div {...sx.props(styles.container)}>
-      <Step steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]} currentStep={1} />
+      <Step
+        steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]}
+        currentStep={step}
+        changeStep={setStep}
+      />
       {
         {
           1: (

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Loading from '../../loading/Loading';
 import { useCategories } from './hooks/useCategories';
 import { buttonStyle, buttonsContainerStyle, containerStyle, titleStyle } from '../styles';
+import Button from '@/components/button/3DButton';
 
 export default function CategorySelection({
   initialCategory,
@@ -26,9 +27,9 @@ export default function CategorySelection({
           </button>
         ))}
       </div>
-      <button disabled={!category} onClick={() => onNext(category ?? '')}>
+      <Button disabled={!category} onClick={() => onNext(category ?? '')}>
         Next
-      </button>
+      </Button>
     </div>
   );
 }
