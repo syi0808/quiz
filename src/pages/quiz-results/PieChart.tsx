@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as sx from '@stylexjs/stylex';
 import { EChartsOption, init } from 'echarts';
-import { PRIMARY_GREEN, RED, colors } from '@/shared/styles/tokens.stylex';
+import { PRIMARY_GREEN, RED } from '@/shared/styles/tokens.stylex';
 
 const getOptions = ({
   correctAnswerCount,

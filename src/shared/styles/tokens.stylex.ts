@@ -1,6 +1,6 @@
 import * as sx from '@stylexjs/stylex';
 
-export const PRIMARY_GREEN = '#6ccc29';
+export const PRIMARY_GREEN = '#92e856';
 export const RED = '#eb2f2f';
 
 export const colors = sx.defineVars({

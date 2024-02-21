@@ -1,30 +1,31 @@
 'use client';
 
-import { motion, stagger } from 'framer-motion';
-import Link from 'next/link';
+import { motion } from 'framer-motion';
+import * as sx from '@stylexjs/stylex';
+import { text } from '@/shared/styles/tokens.stylex';
+import { containerStyle } from './styles';
+import PlayButton from './PlayButton';
 
 export default function Intro() {
   return (
-    <div>
-      <motion.p initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6 }}>
-        Take quizzes in various categories and build knowledge.
+    <motion.div {...containerStyle}>
+      <motion.p
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        {...sx.props(text.h1)}
+      >
+        Experience the thrill of quizzes now!
       </motion.p>
       <motion.p
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1 }}
+        transition={{ duration: 0.6, delay: 0.7 }}
+        {...sx.props(text.h1)}
       >
-        Take quizzes in various categories and build knowledge.
+        Dive into various topics and difficulty levels for a great time.
       </motion.p>
       <PlayButton />
-    </div>
-  );
-}
-
-function PlayButton() {
-  return (
-    <Link href="/wizard" passHref>
-      <button>Play now</button>
-    </Link>
+    </motion.div>
   );
 }

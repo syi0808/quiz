@@ -25,7 +25,7 @@ export default function Wizard() {
 
   return (
     <div {...sx.props(styles.container)}>
-      <Step max={3} step={step} />
+      <Step steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]} currentStep={1} />
       {
         {
           1: (

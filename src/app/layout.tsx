@@ -2,6 +2,8 @@ import Header from '@/components/header/Header';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import * as sx from '@stylexjs/stylex';
+import Image from 'next/image';
+import backgroundImage from '@/assets/soft-gradient-background.jpg';
 import '@/shared/styles/globals.css';
 import '@/shared/styles/reset.css';
 
@@ -23,6 +25,13 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500&display=swap" rel="stylesheet" />
       </head>
       <body>
+        <Image
+          src={backgroundImage.src}
+          width={backgroundImage.width}
+          height={backgroundImage.height}
+          alt="flat wave green background"
+          {...sx.props(styles.backgroundImage)}
+        />
         <div {...sx.props(styles.container)}>
           <Header />
           {children}
@@ -38,15 +47,13 @@ const styles = sx.create({
     flexDirection: 'column',
     height: '100%',
     minHeight: '100%',
-    width: {
-      default: null,
-      '@media (min-width: 1241px)': '1200px',
-      '@media (max-width: 1240px)': '100%',
-    },
-    padding: {
-      default: null,
-      '@media (max-width: 1240px)': '0 20px',
-    },
     marginHorizontal: 'auto',
+  },
+  backgroundImage: {
+    width: '100vw',
+    height: '100vh',
+    objectFit: 'cover',
+    position: 'absolute',
+    zIndex: -1,
   },
 });
