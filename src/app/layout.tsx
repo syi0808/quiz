@@ -48,6 +48,7 @@ const styles = sx.create({
     height: '100%',
     minHeight: '100%',
     marginHorizontal: 'auto',
+    overflow: 'auto',
   },
   backgroundImage: {
     width: '100vw',

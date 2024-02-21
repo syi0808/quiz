@@ -4,6 +4,7 @@ import Step from '@/components/step/Step';
 import CategorySelection from '@/pages/selections/category-selection/CategorySelection';
 import DifficultySelection from '@/pages/selections/difficulty-selection/DifficultySelection';
 import Finish from '@/pages/selections/finish/Finish';
+import { globalStyles } from '@/shared/styles/globals';
 import * as sx from '@stylexjs/stylex';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -24,7 +25,7 @@ export default function Wizard() {
   };
 
   return (
-    <div {...sx.props(styles.container)}>
+    <div {...sx.props(styles.container, globalStyles.responsiveContainer)}>
       <Step
         steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]}
         currentStep={step}

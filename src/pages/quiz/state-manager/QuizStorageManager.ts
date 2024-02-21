@@ -67,6 +67,8 @@ export class QuizStorageManager extends ExternalStore<QuizStorage> {
         initialized: true,
       };
 
+      this.updateLocalstorage(true);
+
       return decodedQuizStorage;
     } catch (e) {
       return await initializeQuizzes();

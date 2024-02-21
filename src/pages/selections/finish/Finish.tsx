@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { containerStyle, titleStyle } from '../styles';
 import Button from '@/components/button/3DButton';
 

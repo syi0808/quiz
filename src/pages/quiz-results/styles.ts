@@ -11,6 +11,10 @@ const styles = sx.create({
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
+    flexDirection: {
+      default: 'row',
+      '@media (max-width: 768px)': 'column',
+    },
   },
 });
 

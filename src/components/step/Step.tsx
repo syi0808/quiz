@@ -44,14 +44,20 @@ const styles = sx.create({
     fontFamily: fontFamily.roboto,
   },
   circle: {
+    minWidth: {
+      default: '50px',
+      '@media (max-width: 768px)': '40px',
+    },
+    minHeight: {
+      default: '50px',
+      '@media (max-width: 768px)': '40px',
+    },
     background: '#999',
     border: '8px solid',
     borderColor: '#ccc',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '50px',
-    height: '50px',
     transition: 'all 0.3s linear',
     borderRadius: '50%',
     color: 'white',
@@ -66,7 +72,9 @@ const styles = sx.create({
     color: colors.black,
   },
   line: {
-    width: '160px',
+    maxWidth: '160px',
+    minWidth: '32px',
+    width: '100%',
     height: '10px',
     background: 'transparent',
     borderTop: '3px solid',

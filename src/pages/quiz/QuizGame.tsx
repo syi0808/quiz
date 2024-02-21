@@ -1,7 +1,13 @@
 'use client';
 
 import * as sx from '@stylexjs/stylex';
-import { containerStyle, questionStyle, questionWrapperStyle, quizMatedataStyle } from './styles';
+import {
+  containerStyle,
+  questionStyle,
+  questionWrapperStyle,
+  quizMatedataStyle,
+  responesiveContainerStyle,
+} from './styles';
 import { useQuizStorage } from './hooks/useQuizStorage';
 import Answer from './Answer';
 import Timer from './Timer';
@@ -33,26 +39,28 @@ export default function QuizGame() {
   };
 
   return (
-    <div {...containerStyle}>
-      <div {...quizMatedataStyle}>
-        <span {...sx.props(text.h5)}>
-          Category: <span dangerouslySetInnerHTML={{ __html: quiz.category }} />
-        </span>
-        <span {...sx.props(text.h5)}>Difficulty: {quiz.difficulty}</span>
-      </div>
-      <span>
-        {currentQuizIndex + 1} / {quizzes.length}
-      </span>
-      <Timer />
-      <div {...questionWrapperStyle}>
-        <h1 dangerouslySetInnerHTML={{ __html: quiz.question }} {...questionStyle} />
-        <div>
-          <Answer {...quiz} />
+    <div {...responesiveContainerStyle}>
+      <div {...containerStyle}>
+        <div {...quizMatedataStyle}>
+          <span {...sx.props(text.h5)}>
+            Category: <span dangerouslySetInnerHTML={{ __html: quiz.category }} />
+          </span>
+          <span {...sx.props(text.h5)}>Difficulty: {quiz.difficulty}</span>
         </div>
+        <span>
+          {currentQuizIndex + 1} / {quizzes.length}
+        </span>
+        <Timer />
+        <div {...questionWrapperStyle}>
+          <h1 dangerouslySetInnerHTML={{ __html: quiz.question }} {...questionStyle} />
+          <div>
+            <Answer {...quiz} />
+          </div>
+        </div>
+        <Button disabled={!isRoundEnded} onClick={handleNextQuiz}>
+          {isLastQuiz ? 'Result' : 'Next Quiz'}
+        </Button>
       </div>
-      <Button disabled={!isRoundEnded} onClick={handleNextQuiz}>
-        {isLastQuiz ? 'Result' : 'Next Quiz'}
-      </Button>
     </div>
   );
 }

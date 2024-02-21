@@ -1,4 +1,4 @@
-import { colors } from '@/shared/styles/tokens.stylex';
+import { colors, text } from '@/shared/styles/tokens.stylex';
 import * as sx from '@stylexjs/stylex';
 import { linkVars } from './link.stylex';
 import { globalStyles } from '@/shared/styles/globals';
@@ -7,6 +7,7 @@ const styles = sx.create({
   container: {
     width: '100%',
     height: '70px',
+    minHeight: '70px',
     background: 'rgba(255, 255, 255, 0.92)',
     display: 'flex',
     justifyContent: 'center',
@@ -19,7 +20,6 @@ const styles = sx.create({
   },
   logoWrapper: {
     color: colors.black,
-    fontSize: '32px',
   },
   navigation: {
     display: 'flex',
@@ -29,7 +29,6 @@ const styles = sx.create({
   link: {
     color: colors.black,
     textDecoration: 'none',
-    fontSize: '18px',
     position: 'relative',
     '::before': {
       content: '',
@@ -55,8 +54,8 @@ export const headerContainerStyle = sx.props(styles.container);
 
 export const headerContentWrapperStyle = sx.props(globalStyles.responsiveContainer, styles.contentWrapper);
 
-export const logoWrapperStyle = sx.props(styles.logoWrapper);
+export const logoWrapperStyle = sx.props(styles.logoWrapper, text.h2);
 
 export const navigationStyle = sx.props(styles.navigation);
 
-export const linkStyle = sx.props(styles.link);
+export const linkStyle = sx.props(styles.link, text.button);

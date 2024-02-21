@@ -3,6 +3,7 @@
 import { motion, stagger, useAnimate } from 'framer-motion';
 import { useEffect } from 'react';
 import { logoWrapperStyle } from './styles';
+import Link from 'next/link';
 
 const spanStyle = { y: 30, opacity: 0, display: 'inline-block' };
 
@@ -10,7 +11,7 @@ export default function Logo() {
   const [q, u, i, z, up] = useLogoAnimate();
 
   return (
-    <div {...logoWrapperStyle}>
+    <Link href="/" {...logoWrapperStyle}>
       <motion.span initial={spanStyle} ref={q}>
         Q
       </motion.span>
@@ -26,7 +27,7 @@ export default function Logo() {
       <motion.span initial={{ y: -70, display: 'inline-block' }} ref={up}>
         UP
       </motion.span>
-    </div>
+    </Link>
   );
 }
 

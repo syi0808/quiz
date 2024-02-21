@@ -8,7 +8,7 @@ import { analyticsContainer, scoreContainer } from './styles';
 import { text } from '@/shared/styles/tokens.stylex';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/spinner/Spinner';
-import { containerStyle } from '../quiz/styles';
+import { containerStyle, responesiveContainerStyle } from '../quiz/styles';
 import Button from '@/components/button/3DButton';
 
 const PieChart = dynamic(import('./PieChart'), { ssr: false, loading: () => <Spinner /> });
@@ -35,23 +35,25 @@ export default function QuizResults() {
   }
 
   return (
-    <div {...containerStyle}>
-      <div {...scoreContainer}>
-        <span {...sx.props(text.caption)}>Correct answers / Total</span>
-        <h1 {...sx.props(text.h1)}>
-          {results.correctAnswerCount} / {results.quizzes.length}
-        </h1>
-      </div>
-      <div {...analyticsContainer}>
+    <div {...responesiveContainerStyle}>
+      <div {...containerStyle}>
         <div {...scoreContainer}>
-          <span {...sx.props(text.h4)}>Correct answers: {results.correctAnswerCount}</span>
-          <span {...sx.props(text.h4)}>Incorrect answers: {results.incorrectAnswerCount}</span>
+          <span {...sx.props(text.caption)}>Correct answers / Total</span>
+          <h1 {...sx.props(text.h1)}>
+            {results.correctAnswerCount} / {results.quizzes.length}
+          </h1>
         </div>
-        <PieChart {...results} />
+        <div {...analyticsContainer}>
+          <div {...scoreContainer}>
+            <span {...sx.props(text.h4)}>Correct answers: {results.correctAnswerCount}</span>
+            <span {...sx.props(text.h4)}>Incorrect answers: {results.incorrectAnswerCount}</span>
+          </div>
+          <PieChart {...results} />
+        </div>
+        <Link href="/quiz/results/review">
+          <Button {...sx.props(text.button)}>Review notes for Wrong answers.</Button>
+        </Link>
       </div>
-      <Link href="/quiz/results/review">
-        <Button {...sx.props(text.button)}>Review notes for Wrong answers.</Button>
-      </Link>
     </div>
   );
 }
