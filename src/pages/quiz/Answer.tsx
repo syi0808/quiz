@@ -16,7 +16,6 @@ export default function Answer({
 }) {
   const { currentQuizIndex, setSelectedAnswerIndex } = useQuizStorage();
   const isAnswer = selectedAnswerIndex === correctAnswerIndex;
-  console.log(correctAnswerIndex, selectedAnswerIndex);
 
   const handleAnswerButton = (index: number) => () => {
     setSelectedAnswerIndex(currentQuizIndex, index);
