@@ -21,7 +21,15 @@ export default function QuizGame() {
   const router = useRouter();
   const { initialized, quizzes, currentQuizIndex, initialize, setCurrentQuizIndex, finishQuiz } = useQuizStorage();
 
-  useEffect(() => void initialize(), []);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    initialize(searchParams.get('initialize') === 'true');
+
+    searchParams.delete('initialize');
+
+    router.replace(`/quiz?${searchParams.toString()}`);
+  }, []);
 
   if (!initialized) return <Loading />;
 

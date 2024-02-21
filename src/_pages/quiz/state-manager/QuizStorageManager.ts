@@ -36,7 +36,7 @@ export class QuizStorageManager extends ExternalStore<QuizStorage> {
     super({ ...initialState });
   }
 
-  async initialize() {
+  async initialize(initialize = false) {
     const quizStorage = localStorage.getItem(QUIZ_STORAGE_NAME);
 
     const initializeQuizzes = async () => {
@@ -57,6 +57,12 @@ export class QuizStorageManager extends ExternalStore<QuizStorage> {
     };
 
     try {
+      if (initialize) {
+        this.state = { ...initialState };
+
+        throw new Error();
+      }
+
       if (!quizStorage) throw new Error(`storage ${QUIZ_STORAGE_NAME} is null.`);
 
       const decodedQuizStorage = validate(quizStorage);
