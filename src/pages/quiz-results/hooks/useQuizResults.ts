@@ -15,17 +15,17 @@ export const useQuizResults = () => {
 
   useEffect(() => {
     try {
-      validate(localStorage.getItem(QUIZ_RESULT_STORAGE_NAME) ?? '', ({ time, quizzes }) => {
-        const correctAnswerCount = quizzes.reduce((total, { correctAnswerIndex, selectedAnswerIndex }) => {
-          return total + Number(correctAnswerIndex === selectedAnswerIndex);
-        }, 0);
+      const { time, quizzes } = validate(localStorage.getItem(QUIZ_RESULT_STORAGE_NAME) ?? '');
 
-        setResults({
-          time,
-          quizzes,
-          correctAnswerCount,
-          incorrectAnswerCount: quizzes.length - correctAnswerCount,
-        });
+      const correctAnswerCount = quizzes.reduce((total, { correctAnswerIndex, selectedAnswerIndex }) => {
+        return total + Number(correctAnswerIndex === selectedAnswerIndex);
+      }, 0);
+
+      setResults({
+        time,
+        quizzes,
+        correctAnswerCount,
+        incorrectAnswerCount: quizzes.length - correctAnswerCount,
       });
     } catch (e) {
       setError(true);
