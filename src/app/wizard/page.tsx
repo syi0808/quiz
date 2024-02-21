@@ -4,10 +4,10 @@ import Step from '@/components/step/Step';
 import CategorySelection from '@/_pages/selections/category-selection/CategorySelection';
 import DifficultySelection from '@/_pages/selections/difficulty-selection/DifficultySelection';
 import Finish from '@/_pages/selections/finish/Finish';
-import { globalStyles } from '@/shared/styles/globals';
 import * as sx from '@stylexjs/stylex';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { responesiveContainerStyle } from '@/_pages/quiz/styles';
 
 export default function Wizard() {
   const [step, setStep] = useState(1);
@@ -19,32 +19,38 @@ export default function Wizard() {
     const searchParams = new URLSearchParams([
       ['category', category ?? ''],
       ['difficulty', difficulty ?? ''],
+      ['initialize', 'true'],
     ]);
 
     router.push(`/quiz?${searchParams.toString()}`);
   };
 
   return (
-    <div {...sx.props(styles.container, globalStyles.responsiveContainer)}>
-      <Step
-        steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]}
-        currentStep={step}
-        changeStep={setStep}
-      />
-      {
+    <div {...responesiveContainerStyle}>
+      <div {...sx.props(styles.container)}>
+        <Step
+          steps={[{ label: 'Category' }, { label: 'Difficulty' }, { label: 'Finish' }]}
+          currentStep={step}
+          changeStep={setStep}
+        />
         {
-          1: (
-            <CategorySelection initialCategory={category} onNext={(category) => (setStep(2), setCategory(category))} />
-          ),
-          2: (
-            <DifficultySelection
-              initialDifficulty={difficulty}
-              onNext={(difficulty) => (setStep(3), setDifficulty(difficulty))}
-            />
-          ),
-          3: <Finish onFinish={onFinish} />,
-        }[step]
-      }
+          {
+            1: (
+              <CategorySelection
+                initialCategory={category}
+                onNext={(category) => (setStep(2), setCategory(category))}
+              />
+            ),
+            2: (
+              <DifficultySelection
+                initialDifficulty={difficulty}
+                onNext={(difficulty) => (setStep(3), setDifficulty(difficulty))}
+              />
+            ),
+            3: <Finish onFinish={onFinish} />,
+          }[step]
+        }
+      </div>
     </div>
   );
 }

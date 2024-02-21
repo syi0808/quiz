@@ -51,8 +51,8 @@ const styles = sx.create({
     overflow: 'auto',
   },
   backgroundImage: {
-    width: '100vw',
-    height: '100vh',
+    width: '100vw !important',
+    height: '100vh !important',
     objectFit: 'cover',
     position: 'absolute',
     zIndex: -1,
