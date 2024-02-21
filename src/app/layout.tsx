@@ -6,6 +6,7 @@ import Image from 'next/image';
 import backgroundImage from '@/assets/soft-gradient-background.jpg';
 import '@/shared/styles/globals.css';
 import '@/shared/styles/reset.css';
+import Footer from '@/components/footer/Footer';
 
 export const metadata: Metadata = {
   title: 'QuizUp',
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Header />
           {children}
         </div>
+        <Footer />
       </body>
     </html>
   );
