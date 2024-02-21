@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import cheerio from 'cheerio';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const res = await fetch('https://opentdb.com/api_config.php');
   const html = await res.text();
   const $ = cheerio.load(html);

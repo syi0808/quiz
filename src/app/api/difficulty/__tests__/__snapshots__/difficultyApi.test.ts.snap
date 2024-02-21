@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get Difficulty API receive and parsing difficulties correctly from html 1`] = `
+[
+  {
+    "label": "Any Difficulty",
+    "value": "any",
+  },
+  {
+    "label": "Easy",
+    "value": "easy",
+  },
+  {
+    "label": "Medium",
+    "value": "medium",
+  },
+  {
+    "label": "Hard",
+    "value": "hard",
+  },
+]
+`;
