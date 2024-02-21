@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals';
 import { validate } from '../QuizStorageValidator';
 
 const quizStorage = {

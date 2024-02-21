@@ -1,5 +1,4 @@
-import { describe, test, expect } from '@jest/globals';
-import { GET } from '../route';
+import { GET } from '../../../../app/api/difficulty/route';
 import { NextRequest } from 'next/server';
 
 describe('Get Difficulty API', () => {

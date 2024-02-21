@@ -26,6 +26,7 @@ const config: Config = {
   transform: {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
   },
+  injectGlobals: true,
 };
 
 export default createJestConfig(config);

@@ -1,4 +1,4 @@
-import Intro from '@/pages/intro/Intro';
+import Intro from '@/_pages/intro/Intro';
 
 export default function Home() {
   return <Intro />;

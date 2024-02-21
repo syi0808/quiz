@@ -1,7 +1,7 @@
 'use client';
 
-import { QUIZ_RESULT_STORAGE_NAME, QuizStorage } from '@/pages/quiz/state-manager/QuizStorageManager';
-import { validate } from '@/pages/quiz/state-manager/QuizStorageValidator';
+import { QUIZ_RESULT_STORAGE_NAME, QuizStorage } from '@/_pages/quiz/state-manager/QuizStorageManager';
+import { validate } from '@/_pages/quiz/state-manager/QuizStorageValidator';
 import { useEffect, useState } from 'react';
 
 type QuizResults = Required<Pick<QuizStorage, 'time' | 'quizzes'>> & {

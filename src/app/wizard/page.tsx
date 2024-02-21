@@ -1,9 +1,9 @@
 'use client';
 
 import Step from '@/components/step/Step';
-import CategorySelection from '@/pages/selections/category-selection/CategorySelection';
-import DifficultySelection from '@/pages/selections/difficulty-selection/DifficultySelection';
-import Finish from '@/pages/selections/finish/Finish';
+import CategorySelection from '@/_pages/selections/category-selection/CategorySelection';
+import DifficultySelection from '@/_pages/selections/difficulty-selection/DifficultySelection';
+import Finish from '@/_pages/selections/finish/Finish';
 import { globalStyles } from '@/shared/styles/globals';
 import * as sx from '@stylexjs/stylex';
 import { useRouter } from 'next/navigation';

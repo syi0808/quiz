@@ -2,7 +2,6 @@ jest.mock('@/shared/utils/random', () => ({
   getRandomInterger: jest.fn(() => 1),
 }));
 
-import { describe, expect, jest, test } from '@jest/globals';
 import { getQuizzes } from '../quiz';
 import { getRandomInterger } from '@/shared/utils/random';
 

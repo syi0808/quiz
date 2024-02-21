@@ -1,6 +1,6 @@
 'use client';
 
-import Loading from '@/pages/loading/Loading';
+import Loading from '@/_pages/loading/Loading';
 import { buttonStyle, buttonsContainerStyle, containerStyle, titleStyle } from '../styles';
 import { useState } from 'react';
 import { useDifficulties } from './hooks/useDifficulties';

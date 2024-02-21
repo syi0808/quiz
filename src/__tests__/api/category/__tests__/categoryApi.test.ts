@@ -1,5 +1,4 @@
-import { describe, test, expect } from '@jest/globals';
-import { GET } from '../route';
+import { GET } from '../../../../app/api/category/route';
 import { NextRequest } from 'next/server';
 
 describe('Get Category API', () => {

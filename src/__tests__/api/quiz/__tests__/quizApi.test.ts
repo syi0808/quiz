@@ -1,5 +1,4 @@
-import { describe, jest, test, expect } from '@jest/globals';
-import { GET } from '../route';
+import { GET } from '../../../../app/api/quiz/route';
 import { NextRequest } from 'next/server';
 
 import { HttpResponse, http } from 'msw';
