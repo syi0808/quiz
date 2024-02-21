@@ -9,7 +9,7 @@ type Props = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButt
 
 export default function Button({ styles, children, ...props }: Props) {
   return (
-    <button {...props} {...sx.props(sxStyles.button, text.button, styles)}>
+    <button role="button" {...props} {...sx.props(sxStyles.button, text.button, styles)}>
       {children}
     </button>
   );

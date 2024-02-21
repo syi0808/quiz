@@ -22,7 +22,7 @@ export default function CategorySelection({
       <p {...titleStyle}>What category of quiz do you want?</p>
       <div {...buttonsContainerStyle}>
         {data?.map(({ label, value }) => (
-          <button key={value} onClick={() => setCategory(value)} {...buttonStyle(value === category)}>
+          <button role="button" key={value} onClick={() => setCategory(value)} {...buttonStyle(value === category)}>
             {label}
           </button>
         ))}

@@ -22,7 +22,7 @@ export default function DifficultySelection({
       <p {...titleStyle}>What level of difficulty do you want the quiz?</p>
       <div {...buttonsContainerStyle}>
         {data?.map(({ label, value }) => (
-          <button key={value} onClick={() => setCategory(value)} {...buttonStyle(value === category)}>
+          <button role="button" key={value} onClick={() => setCategory(value)} {...buttonStyle(value === category)}>
             {label}
           </button>
         ))}
