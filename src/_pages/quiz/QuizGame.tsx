@@ -31,7 +31,7 @@ export default function QuizGame() {
     router.replace(`/quiz?${searchParams.toString()}`);
   }, []);
 
-  if (!initialized) return <Loading />;
+  if (!initialized) return <Loading loadingText="Loading quizzes..." />;
 
   const quiz = quizzes?.[currentQuizIndex];
   const isRoundEnded = quiz?.selectedAnswerIndex !== undefined;

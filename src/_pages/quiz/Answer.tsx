@@ -29,6 +29,7 @@ export default function Answer({
 
         return (
           <button
+            role="button"
             onClick={handleAnswerButton(index)}
             disabled={selectedAnswerIndex !== undefined}
             key={answer}
