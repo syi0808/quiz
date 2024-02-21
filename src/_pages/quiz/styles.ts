@@ -7,7 +7,7 @@ const styles = sx.create({
     height: '100%',
     display: 'flex',
     padding: {
-      default: null,
+      default: '20px 0',
       '@media (max-width: 768px)': '10px',
     },
   },
