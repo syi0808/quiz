@@ -1,6 +1,5 @@
 'use client';
 
-import { isLeft } from 'fp-ts/lib/Either';
 import { ExternalStore } from '@/shared/utils/class';
 import { Quiz, getQuizzes } from '../api/quiz';
 import { validate } from './QuizStorageValidator';
@@ -37,31 +36,40 @@ export class QuizStorageManager extends ExternalStore<QuizStorage> {
     super({ ...initialState });
   }
 
-  initialize() {
+  async initialize() {
     const quizStorage = localStorage.getItem(QUIZ_STORAGE_NAME);
 
     const initializeQuizzes = async () => {
       const quizzes = await getQuizzes(new URLSearchParams(window.location.search));
-
-      this.state = {
+      const nextState = {
         ...this.state,
         quizzes,
         initialized: true,
       };
 
+      this.state = {
+        ...nextState,
+      };
+
       this.updateLocalstorage(true);
+
+      return nextState;
     };
 
     try {
-      validate(quizStorage ?? '', (decodedQuizStorage) => {
-        this.state = {
-          ...this.state,
-          ...decodedQuizStorage,
-          initialized: true,
-        };
-      });
+      if (!quizStorage) throw new Error(`storage ${QUIZ_STORAGE_NAME} is null.`);
+
+      const decodedQuizStorage = validate(quizStorage);
+
+      this.state = {
+        ...this.state,
+        ...decodedQuizStorage,
+        initialized: true,
+      };
+
+      return decodedQuizStorage;
     } catch (e) {
-      initializeQuizzes();
+      return await initializeQuizzes();
     }
   }
 

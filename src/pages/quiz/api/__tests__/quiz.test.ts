@@ -1,5 +1,4 @@
 jest.mock('@/shared/utils/random', () => ({
-  __esModule: true,
   getRandomInterger: jest.fn(() => 1),
 }));
 

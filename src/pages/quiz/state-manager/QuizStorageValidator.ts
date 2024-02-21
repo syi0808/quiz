@@ -21,7 +21,7 @@ export const QuizStorage = t.type({
   ),
 });
 
-export function validate(quizStorageString: string, callback: (quizStorage: t.TypeOf<typeof QuizStorage>) => void) {
+export function validate(quizStorageString: string) {
   const decoded = QuizStorage.decode(JSON.parse(quizStorageString));
 
   if (isLeft(decoded)) {
@@ -30,6 +30,6 @@ export function validate(quizStorageString: string, callback: (quizStorage: t.Ty
     type QuizStorageT = t.TypeOf<typeof QuizStorage>;
     const decodedQuizStorage: QuizStorageT = decoded.right;
 
-    callback(decodedQuizStorage);
+    return decodedQuizStorage;
   }
 }
