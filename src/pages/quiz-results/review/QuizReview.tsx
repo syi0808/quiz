@@ -8,6 +8,7 @@ import { useQuizResults } from '@/pages/quiz-results/hooks/useQuizResults';
 import Loading from '@/pages/loading/Loading';
 import { useRouter } from 'next/navigation';
 import { colors } from '@/shared/styles/tokens.stylex';
+import Button from '@/components/button/3DButton';
 
 export default function QuizReview() {
   const router = useRouter();
@@ -44,9 +45,9 @@ export default function QuizReview() {
           <Answer showCorrectAnswer {...quiz} />
         </div>
       </div>
-      <button disabled={!isRoundEnded} onClick={handleNextQuiz}>
+      <Button disabled={!isRoundEnded} onClick={handleNextQuiz}>
         {isLastQuiz ? 'Finish' : 'Next'}
-      </button>
+      </Button>
     </div>
   );
 }

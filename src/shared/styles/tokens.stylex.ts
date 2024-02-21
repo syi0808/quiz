@@ -16,27 +16,45 @@ export const fontFamily = sx.defineVars({
 
 export const text = sx.create({
   h1: {
-    fontSize: '48px',
+    fontSize: {
+      default: '48px',
+      '@media (max-width: 768px)': '38px',
+    },
     fontWeight: 700,
   },
   h2: {
-    fontSize: '40px',
+    fontSize: {
+      default: '40px',
+      '@media (max-width: 768px)': '30px',
+    },
     fontWeight: 700,
   },
   h3: {
-    fontSize: '32px',
+    fontSize: {
+      default: '32px',
+      '@media (max-width: 768px)': '24px',
+    },
     fontWeight: 700,
   },
   h4: {
-    fontSize: '24px',
+    fontSize: {
+      default: '24px',
+      '@media (max-width: 768px)': '22px',
+    },
     fontWeight: 700,
   },
   h5: {
-    fontSize: '20px',
+    fontSize: {
+      default: '20px',
+      '@media (max-width: 768px)': '18px',
+    },
     fontWeight: 700,
   },
   h6: {
-    fontSize: '18px',
+    fontSize: {
+      default: '18px',
+      '@media (max-width: 768px)': '16px',
+    },
     fontWeight: 700,
   },
   paragraph: {
@@ -44,11 +62,17 @@ export const text = sx.create({
     fontWeight: 500,
   },
   button: {
-    fontSize: '18px',
+    fontSize: {
+      default: '18px',
+      '@media (max-width: 768px)': '16px',
+    },
     fontWeight: 500,
   },
   caption: {
-    fontSize: '16px',
+    fontSize: {
+      default: '16px',
+      '@media (max-width: 768px)': '14px',
+    },
     fontWeight: 500,
   },
 });

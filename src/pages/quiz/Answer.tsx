@@ -4,7 +4,7 @@ import * as sx from '@stylexjs/stylex';
 import { useQuizStorage } from './hooks/useQuizStorage';
 import { QuizWithInformation } from './state-manager/QuizStorageManager';
 import CheckIcon from '@/components/icons/Check';
-import { colors } from '@/shared/styles/tokens.stylex';
+import { colors, text } from '@/shared/styles/tokens.stylex';
 
 export default function Answer({
   answers,
@@ -32,10 +32,10 @@ export default function Answer({
             onClick={handleAnswerButton(index)}
             disabled={selectedAnswerIndex !== undefined}
             key={answer}
-            {...sx.props(styles.button, isSelectedButton && getAnswerButtonStyle(isAnswer))}
+            {...sx.props(text.h4, styles.button, isSelectedButton && getAnswerButtonStyle(isAnswer))}
           >
             {showCorrectAnswer && isAnswerButton && <CheckIcon style={styles.correctAnswerButton} />}
-            {answer}
+            <span dangerouslySetInnerHTML={{ __html: answer }} />
           </button>
         );
       })}
@@ -49,6 +49,7 @@ const getAnswerButtonStyle = (isAnswer: boolean) => {
 
 const styles = sx.create({
   container: {
+    padding: '4px',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: '1fr',
@@ -60,8 +61,13 @@ const styles = sx.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '40px 60px',
+    padding: '32px 44px',
     position: 'relative',
+    border: 'none',
+    borderRadius: '8px',
+    ':not([disabled]):hover': {
+      filter: 'brightness(0.9)',
+    },
   },
   correctAnswerButton: {
     width: '36px',
@@ -72,11 +78,11 @@ const styles = sx.create({
     right: 0,
   },
   correctSelectedButton: {
-    border: '1px solid',
-    borderColor: colors.primary,
+    outline: '4px solid',
+    outlineColor: colors.primary,
   },
   incorrectSelectedButton: {
-    border: '1px solid',
-    borderColor: colors.red,
+    outline: '4px solid',
+    outlineColor: colors.red,
   },
 });

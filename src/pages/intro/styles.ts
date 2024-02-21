@@ -14,6 +14,7 @@ const styles = sx.create({
     fontFamily: fontFamily.roboto,
     color: colors.black,
     position: 'relative',
+    padding: '0 20px',
   },
 });
 

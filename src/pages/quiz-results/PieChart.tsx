@@ -26,7 +26,7 @@ const getOptions = ({
       avoidLabelOverlap: false,
       itemStyle: {
         borderRadius: 10,
-        borderColor: '#fff',
+        borderColor: 'white',
         borderWidth: 4,
       },
       label: {

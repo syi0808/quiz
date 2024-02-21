@@ -4,10 +4,12 @@ import Link from 'next/link';
 import Loading from '../loading/Loading';
 import * as sx from '@stylexjs/stylex';
 import { useQuizResults } from './hooks/useQuizResults';
-import { analyticsContainer, containerStyle, scoreContainer } from './styles';
+import { analyticsContainer, scoreContainer } from './styles';
 import { text } from '@/shared/styles/tokens.stylex';
 import dynamic from 'next/dynamic';
 import Spinner from '@/components/spinner/Spinner';
+import { containerStyle } from '../quiz/styles';
+import Button from '@/components/button/3DButton';
 
 const PieChart = dynamic(import('./PieChart'), { ssr: false, loading: () => <Spinner /> });
 
@@ -48,7 +50,7 @@ export default function QuizResults() {
         <PieChart {...results} />
       </div>
       <Link href="/quiz/results/review">
-        <button {...sx.props(text.button)}>Review notes for Wrong answers.</button>
+        <Button {...sx.props(text.button)}>Review notes for Wrong answers.</Button>
       </Link>
     </div>
   );

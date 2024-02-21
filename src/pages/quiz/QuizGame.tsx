@@ -1,12 +1,15 @@
 'use client';
 
-import { containerStyle, questionStyle, questionWrapperStyle } from './styles';
+import * as sx from '@stylexjs/stylex';
+import { containerStyle, questionStyle, questionWrapperStyle, quizMatedataStyle } from './styles';
 import { useQuizStorage } from './hooks/useQuizStorage';
 import Answer from './Answer';
 import Timer from './Timer';
 import Loading from '../loading/Loading';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Button from '@/components/button/3DButton';
+import { text } from '@/shared/styles/tokens.stylex';
 
 export default function QuizGame() {
   const router = useRouter();
@@ -31,19 +34,25 @@ export default function QuizGame() {
 
   return (
     <div {...containerStyle}>
+      <div {...quizMatedataStyle}>
+        <span {...sx.props(text.h5)}>
+          Category: <span dangerouslySetInnerHTML={{ __html: quiz.category }} />
+        </span>
+        <span {...sx.props(text.h5)}>Difficulty: {quiz.difficulty}</span>
+      </div>
       <span>
         {currentQuizIndex + 1} / {quizzes.length}
       </span>
       <Timer />
       <div {...questionWrapperStyle}>
-        <h1 dangerouslySetInnerHTML={{ __html: quiz.question }} {...questionStyle}></h1>
+        <h1 dangerouslySetInnerHTML={{ __html: quiz.question }} {...questionStyle} />
         <div>
           <Answer {...quiz} />
         </div>
       </div>
-      <button disabled={!isRoundEnded} onClick={handleNextQuiz}>
+      <Button disabled={!isRoundEnded} onClick={handleNextQuiz}>
         {isLastQuiz ? 'Result' : 'Next Quiz'}
-      </button>
+      </Button>
     </div>
   );
 }
